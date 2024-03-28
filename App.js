@@ -8,10 +8,14 @@ export default function App() {
 
     //Create the images here (Hard code what images at first for testing purposes)
      const matchCards = [
-        {id:1, filepath:require('./imgSrc/imageOne.png') },
-        {id:2, filepath:require('./imgSrc/imageTwo.png')},
-        {id:3, filepath:require('./imgSrc/imageThree.png')},
-        {id:4, filepath:require('./imgSrc/imageFour.png')},
+        {key:1, id:1, filepath:require('./imgSrc/imageOne.png') },
+        {key:2, id:2, filepath:require('./imgSrc/imageTwo.png')},
+        {key:3, id:3, filepath:require('./imgSrc/imageThree.png')},
+        {key:4, id:4, filepath: require('./imgSrc/imageFour.png') },
+        {key:5, id:1, filepath: require('./imgSrc/imageOne.png') },
+        {key:6, id:2, filepath: require('./imgSrc/imageTwo.png') },
+        {key:7, id:3, filepath: require('./imgSrc/imageThree.png') },
+        {key:8, id:4, filepath: require('./imgSrc/imageFour.png') },
      ] 
     
     
@@ -28,6 +32,7 @@ export default function App() {
     //Shuffle "cards"
     //Use two instances of the images to create a pair for matching purposes later
     const shuffleMatch = () => {
+        const cardHolder = {matchCards}
         const postShuffle = [...matchCards, ...matchCards]    
         .sort(() => Math.random() -0.5)
         .map((cards) => ({...cards, id: Math.random() }))
@@ -62,22 +67,8 @@ export default function App() {
           <Text>The Current Score is: {score}</Text>
           <View style={styles.cardContainer}>
               <View style={styles.row}>
-                  {matchCards.slice(0, 4).map((card) => (
-                      <FlipCard key={card.id} style={styles.card} clickable={isMatched} onFlipEnd={(isFlipEnd) => { testFlipEnd(card.id) }} >
-                          {/* Face Side */}
-                          <View style={styles.face}>
-                              <Image source={require('./imgSrc/imageBack.png')} />
-                          </View>
-                          {/* Back Side */}
-                          <View style={styles.back}>
-                              <Image source={card.filepath} />
-                          </View>
-                      </FlipCard>
-                  ))}
-              </View>
-              <View style={styles.row}>
-                  {matchCards.slice(0, 4).map((card) => (
-                      <FlipCard key={card.id} style={styles.card} clickable={isMatched} onFlipEnd={(isFlipEnd) => { testFlipEnd(card.id) }}>
+                  {matchCards.slice(0, 8).map((card) => (
+                      <FlipCard key={card.key} id={card.id} style={styles.card} clickable={isMatched} onFlipEnd={(isFlipEnd) => { testFlipEnd(card.id) }} >
                           {/* Face Side */}
                           <View style={styles.face}>
                               <Image source={require('./imgSrc/imageBack.png')} />
