@@ -18,7 +18,7 @@ export default function App() {
         {key:8, id:4, filepath: require('./imgSrc/imageFour.png') },
      ] 
     
-    
+    const [doFlip, setDoFlip] = useState(false);
      //track what img for the cards
     const [cards, setCards] = useState([]);
     //track score
@@ -35,8 +35,14 @@ export default function App() {
         const cardHolder = {matchCards}
         const postShuffle = [...matchCards, ...matchCards]    
         .sort(() => Math.random() -0.5)
-        .map((cards) => ({...cards, id: Math.random() }))
-
+            .map((cards) => ({ ...cards, id: Math.random() }))
+        //Flips all the cards, helpful for reset, but doesn't check if cards should be flipped or not
+        if (doFlip) {
+            setDoFlip(false)
+        }
+        else {
+            setDoFlip(true);
+        }
         setCards(postShuffle);
         setFlippedCard1(null);
         setFlippedCard2(null);
@@ -68,7 +74,7 @@ export default function App() {
           <View style={styles.cardContainer}>
               <View style={styles.row}>
                   {matchCards.slice(0, 8).map((card) => (
-                      <FlipCard key={card.key} id={card.id} style={styles.card} clickable={isMatched} onFlipEnd={(isFlipEnd) => { testFlipEnd(card.id) }} >
+                      <FlipCard key={card.key} id={card.id} style={styles.card} flip={doFlip} clickable={isMatched} onFlipEnd={(isFlipEnd) => { testFlipEnd(card.id) }} >
                           {/* Face Side */}
                           <View style={styles.face}>
                               <Image source={require('./imgSrc/imageBack.png')} />
