@@ -39,16 +39,22 @@ export default function App() {
         //Flips all the cards, helpful for reset, but doesn't check if cards should be flipped or not
         if (doFlip) {
             setDoFlip(false)
+            setFlippedCard1(null);
+            setFlippedCard2(null);
         }
         else {
             setDoFlip(true);
+            setFlippedCard1(null);
+            setFlippedCard2(null);
         }
         setCards(postShuffle);
         setFlippedCard1(null);
         setFlippedCard2(null);
         setScore(0);
     }
-    
+
+ 
+
     const testFlipEnd = async (card) => {
         Vibration.vibrate();
         if (flippedCard1 == null) {
@@ -60,6 +66,11 @@ export default function App() {
 
         if (flippedCard1 == flippedCard2 && flippedCard1 != null && flippedCard2 != null) {
             setScore(+1);
+            setFlippedCard1(null);
+            setFlippedCard2(null);
+        }
+        if (flippedCard1 != flippedCard2 && flippedCard1 != null && flippedCard2 != null) {
+            setScore(-1);
             setFlippedCard1(null);
             setFlippedCard2(null);
         }
